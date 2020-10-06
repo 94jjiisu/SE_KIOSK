@@ -1,3 +1,5 @@
+# 구동되지 않는 미완성 코드입니다.
+
 import pymysql
 # dbconfig.py
 class MysqlController:
