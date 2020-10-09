@@ -1,5 +1,5 @@
-#pyQt5로 했습니다..
-#ui는 QtDesigner로 만들었습니다..
+#pyQt5로 했습니다
+#ui는 QtDesigner로 만들었습니다
 
 import sys
 from PyQt5.QtWidgets import *
