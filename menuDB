@@ -39,3 +39,16 @@ result = cursor.fetchall()
 for i in result:
     print(i)
 
+
+
+
+#Menu DB
+
+#CREATE TABLE menu
+#(
+#menuID INT PRIMARY KEY,
+#menuName VARCHAR(50),
+#menuPrice INT
+#)
+
+#!!! 사용자가 입력해서 메뉴 추가, 갱신, 삭제할 수 있도록 구현하기 !!!
