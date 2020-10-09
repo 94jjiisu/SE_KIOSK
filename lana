@@ -1,0 +1,41 @@
+import pymysql.cursors
+
+lana_db = pymysql.connect(
+    user = 'root',
+    passwd = '990427',
+    host = '127.0.0.1',
+    db = 'menu',
+    charset = 'utf8'
+)
+
+cursor = lana_db.cursor()
+
+# 데이터 삽입 INSERT
+insert_q = """
+insert into menu(menuID, menuName, menuPrice) values (%s, %s, %s)
+"""
+cursor.execute(insert_q, (5, "BLT", 3000))
+cursor.execute(insert_q, (6, "Vegie", 2500))
+
+# 데이터 갱신 UPDATE
+update_q = """
+update menu 
+set menuPrice = 2500
+where menuName = 'Avocado'
+"""
+cursor.execute(update_q)
+
+# 데이터 삭제 DELETE
+delete_q = """
+delete from menu
+where menuName = "Vegie"
+"""
+cursor.execute(delete_q)
+
+# 데이터 조회 SELECT
+select_q = ("SELECT * FROM %s" %'menu')
+cursor.execute(select_q)
+result = cursor.fetchall()
+for i in result:
+    print(i)
+
