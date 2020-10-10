@@ -19,11 +19,21 @@ class MainWindow(QMainWindow, ui_1):
         eggImage.load("파일이름.jpg") #이 파일도 같은 폴더 안에 있어야 해여!
         self.label이름.setPixmap(eggImage)
         
+        #Label widget에 text 설정 방법
+        self.label이름.setText('넣을 텍스트')
+        
+        #List Widget에 list 넣는 방법
+        list = [ ] #넣고 싶은 목록 리스트로 작성
+        model = QstandartItemModel()
+        for o in list:
+            model.appendRow(QstandardItem(o)) #model에 목록들 넣어주는 과정
+        self.listWidget이름.setModel(model)
+        
         #버튼에 이벤트 넣는방법~
         self.버튼이름.connect(self.함수이름)
-
-        self.setWindowTitle('EGGDROP KIOSK')
-        self.setFixedSize(500,900) #UI를 500X900 으로 만들어서 걍 이거 고정으로 해놨습니다..
+        
+        self.setWindowTitle('EGGDROP KIOSK') #앱 이름 EGGDROP KIOSK
+        self.setFixedSize(500,900) #UI를 500X900으로 만들어서 고정시킴
         
     def 함수이름(self):
         print("버튼 눌림!!!")
