@@ -572,7 +572,7 @@
           </property>
           <property name="font">
            <font>
-            <family>아리따-돋움_TTF_Medium</family>
+            <family>아리따-돋움_TTF_SemiBold</family>
             <pointsize>16</pointsize>
            </font>
           </property>
