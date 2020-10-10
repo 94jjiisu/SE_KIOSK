@@ -64,14 +64,32 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <widget class="QLabel" name="label">
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-     </widget>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="manage_btn"> #관리자 모드 넘어가는 
+        <property name="styleSheet">
+         <string notr="true">background: rgba(255, 255, 255, 0)</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
     <item>
      <widget class="QLabel" name="label_2">
@@ -99,7 +117,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="order_btn">
+       <widget class="QPushButton" name="order_btn"> #주문하기 버튼
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
