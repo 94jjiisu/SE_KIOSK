@@ -600,7 +600,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QScrollArea" name="scrollArea">
+       <widget class="QScrollArea" name="scrollArea">  #이부분이 메뉴 선택한게 들어가야하는 부분인데 이건 구현을 못했습니다 ㅜ.ㅜ; 
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
