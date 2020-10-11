@@ -1,0 +1,133 @@
+# 사용자가 입력으로 메뉴 추가, 수정(이름, 가격), 삭제 할 수 있음
+
+import pymysql.cursors
+
+lana_db = pymysql.connect(
+    user='root',
+    passwd='990427',
+    host='127.0.0.1',
+    db='menu',
+    charset='utf8'
+)
+
+cursor = lana_db.cursor()
+
+def select(menuID):
+    t = (menuID,)
+    select_q = """
+    select * from menu
+    where menuID = (%s)
+    """
+    cursor.execute(select_q, t)
+
+def insert(menuID):
+    menuName = input("menuName : ")
+    menuPrice = input("menuPrice : ")
+    t = menuID, menuName, menuPrice
+    insert_q = """
+    insert into menu
+    (menuID, menuName, menuPrice)
+    values (%s, %s, %s)
+    """
+    cursor.execute(insert_q, t)
+
+def update(menuID):
+    while True:
+        change = input("menuName / menuPrice / Finished : ")
+        if change == "Finished":
+            break
+        elif change == "menuName":
+            menuName = input("New name : ")
+            t = menuName, menuID
+            update_q = """
+            update menu
+            set menuName = %s
+            where menuID = %s
+            """
+            cursor.execute(update_q, t)
+        elif change == "menuPrice":
+            menuPrice = input("New price : ")
+            t = menuPrice, menuID
+            update_q = """
+            update menu
+            set menuPrice = %s
+            where menuID = %s
+            """
+            cursor.execute(update_q, t)
+
+def delete(menuID):
+    sure = input("Are You Sure?\n Y / N : ")
+    if sure == "Y":
+        t = (menuID,)
+        delete_q = """
+        delete from menu
+        where menuID = (%s)
+        """
+        cursor.execute(delete_q, t)
+
+def show():
+    show_q = """
+    select * from menu
+    """
+    cursor.execute(show_q)
+    p = cursor.fetchall()
+    for i in p:
+        print(i)
+
+
+
+while True:
+    act = int(input("Press 0 to finish\n 1. Select\n 2. Insert\n 3. Update\n 4. Delete\n 5. Show All\n"))
+    if act == 0:
+        break
+    elif act == 5:
+        show()
+        break
+    menuID = int(input("Press 0 to go back\nmenuID : "))
+    if act == 1:
+        if menuID == 0:
+            continue
+        select(menuID)
+        p = cursor.fetchone()
+        print(p)
+
+    elif act == 2:
+        if menuID == 0:
+            continue
+        insert(menuID)
+        select(menuID)
+        p = cursor.fetchone()
+        print(p)
+
+    elif act == 3:
+        if menuID == 0:
+            continue
+        update(menuID)
+        select(menuID)
+        p = cursor.fetchone()
+        print(p)
+
+    elif act == 4:
+        if menuID == 0:
+            continue
+        delete(menuID)
+
+#Menu DB
+
+#CREATE TABLE menu
+#(
+#menuID INT PRIMARY KEY,
+#menuName VARCHAR(50),
+#menuPrice INT
+#)
+
+
+# 0 누르면 종료, 1.선택 2.추가 3.수정 4.삭제 5.전체보기
+# 메뉴ID 입력 (0 누르면 다시 추가수정삭제전체보기 선택으로 돌아가기)
+# 메뉴추가 - 메뉴이름과 가격을 마저 입력하면 DB에 추가
+# 메뉴수정 - 수정할 항목이 메뉴 이름인지 가격인지 선택후 입력한 값으로 수정됨.
+# 메뉴삭제 - 해당 메뉴를 삭제
+# 전체보기 - Db 전체를 볼 수 있다.
+
+!!! DB에 수량 추가하기 !!!
+!!! 수정사항 저장할 수 있도록 구현하기 !!!
