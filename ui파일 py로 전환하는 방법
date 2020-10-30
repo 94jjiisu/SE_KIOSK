@@ -1,0 +1,5 @@
+Qt Designer로 만든 .ui 파일을 .py 파일로 변경하는 방법
+
+1. ui가 저장되어있는 폴더로 가서 powershell을 연다.
+2. 이때 Powershell은 해당 폴더에서 shift 키를 누르고 마우스 우측 버튼을 클릭하고 '여기에 Power Shell 창 열기' 를 누르면 된다.
+3. 열린 Powershell에서 pyuic5 -x 파일이름.ui -o 파일이름 .py 를 치면 .ui파일이 .py 파일로 변환됨
