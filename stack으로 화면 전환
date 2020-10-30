@@ -1,0 +1,101 @@
+import sys
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtCore import *
+from PyQt5 import uic, QtCore, QtGui, QtWidgets
+
+class Order_Ui(object):  #Qt Designer로 만든 ui 파일을 py 파일로 변환해서 사용함
+    def setupUi(self, Order):
+        Order.setObjectName("Order")
+        Order.resize(500, 900)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        Order.setPalette(palette)
+        Order.setStyleSheet("backgournd: rgb(255, 255, 255)")
+        self.gridLayoutWidget = QtWidgets.QWidget(Order)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, 504, 901))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setObjectName("gridLayout")
+        spacerItem = QtWidgets.QSpacerItem(20, 700, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.gridLayout.addItem(spacerItem, 1, 1, 1, 1)
+        self.order_btn = QtWidgets.QPushButton(self.gridLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(30)
+        self.order_btn.setFont(font)
+        self.order_btn.setAutoFillBackground(False)
+        self.order_btn.setStyleSheet("background-color: rgb(184, 61, 0);"
+                                     "border: 4px solid;"
+                                     "border-color: rgb(184, 61, 0);"
+                                     "border-radius: 50px;")
+        self.order_btn.setObjectName("order_btn")
+        self.gridLayout.addWidget(self.order_btn, 2, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem1, 0, 2, 1, 1)
+        spacerItem2 = QtWidgets.QSpacerItem(150, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem2, 2, 0, 1, 1)
+        self.manager_btn = QtWidgets.QPushButton(self.gridLayoutWidget)
+        self.manager_btn.setStyleSheet("background:rgba(255, 255, 255, 0)")
+        self.manager_btn.setText("")
+        self.manager_btn.setObjectName("manager_btn")
+        self.gridLayout.addWidget(self.manager_btn, 0, 0, 1, 1)
+
+        self.retranslateUi(Order)
+        QtCore.QMetaObject.connectSlotsByName(Order)
+
+    def retranslateUi(self, Order):
+        _translate = QtCore.QCoreApplication.translate
+        Order.setWindowTitle(_translate("Order", "Dialog"))
+        self.order_btn.setText(_translate("Order", "o r d e r"))
+        
+#Ui를 py로 변환한 친구들
+
+class FirstWidget(QtWidgets.QWidget): #첫 번째 스택 = 주문하기 버튼, 관리자 모드 버튼 있는 초기 화면
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+
+        order_ui = Order_Ui()
+        order_ui.setupUi(self) #ui설정
+        
+        order_ui.order_btn.clicked.connect(self.change_stack) #버튼 누르면 change_stack 실행
+
+        self.setFixedSize(500, 900)
+
+    def change_stack(self): #이거 누르면 index 1(2번째 스택)으로 변환됨 --> 버튼 마다 index를 달리하면 마음대로 오고갈 수 있음
+        self.parent().stack.setCurrentIndex(1)
+
+class SecondWidget(QtWidgets.QWidget): # 두 번째 스택 = 메뉴 선택할 수 있는 화면
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        ui = Main_Ui()
+
+        ui.setupUi(self)
+        self.setFixedSize(500,900)
+
+    def change_stack(self): 
+        self.parent().stack.setCurrentIndex(2)
+
+class MainWindow(QtWidgets.QWidget): #스택 쌓여있는 메인 창 설정
+    def __init__(self):
+        super().__init__()
+        self.setFixedSize(500, 900)
+        self.setWindowTitle('EGGDROP')
+        self.stack = QtWidgets.QStackedLayout(self)
+        self.stack1 = FirstWidget(self)
+        self.stack2 = SecondWidget(self)
+        self.stack.addWidget(self.stack1)
+        self.stack.addWidget(self.stack2)
+        self.show()
+
+app = QtWidgets.QApplication([])
+main = MainWindow()
+app.exec()
