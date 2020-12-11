@@ -1537,16 +1537,23 @@ class initialPage(QtWidgets.QWidget): #초기화면
         self.setFixedSize(500, 900)
 
     def openMain(self):
+        threading.Timer(120, self.returnInitial).start() # 메인화면으로 넘어 가는 버튼 누른 후 2분간 주문 끝내지 않으면 자동으로 초기 화면으로 돌아감
         self.parent().stack.setCurrentIndex(1) #메인화면으로 전환
 
     def openManager(self):
         self.parent().stack.setCurrentIndex(8) #관리자모드로 전환
+        
+    def returnInitial(self):
+        MainWindow.totalCost = 0
+        MainWindow.menuName = ""
+        MainWindow.topping = "없음"
+        MainWindow.bread = "기본"
+
+        self.parent().stack.setCurrentIndex(0) #초기 화면으로 전환
 
 class order(QtWidgets.QWidget): #주문하는 메인화면
 
     def __init__(self, parent=None):
-        threading.Timer(120, self.returnInitial).start()#메인화면에 넘어 온 후 2분간 주문 끝내지 않으면 자동으로 초기 화면으로 돌아감
-
         super().__init__(parent=parent)
         menumainUi = mainUi()
         menumainUi.setupUi(self)
@@ -1577,21 +1584,6 @@ class order(QtWidgets.QWidget): #주문하는 메인화면
                                                 "만남♥\n")
         self.parent().stack.setCurrentIndex(2) #상세화면으로 전환
 
-    def returnInitial(self):
-        ui = orderDetail.orderUi
-
-        ui.avocadoBtn.setCheckState(False)
-        ui.pollackBtn.setCheckState(False)
-        ui.eggBtn.setCheckState(False)
-        ui.bunBtn.setCheckState(False)
-
-        MainWindow.totalCost = 0
-        MainWindow.menuName = ""
-        MainWindow.topping = "없음"
-        MainWindow.bread = "없음"
-
-        self.parent().stack.setCurrentIndex(0) #초기 화면으로 전환
-
 class orderDetail(QtWidgets.QWidget): #상세정보 화면
 
     orderUi = menuUi()
@@ -1618,7 +1610,7 @@ class orderDetail(QtWidgets.QWidget): #상세정보 화면
         MainWindow.totalCost = 0
         MainWindow.menuName = ""
         MainWindow.topping = "없음"
-        MainWindow.bread = "없음"
+        MainWindow.bread = "기본"
 
         self.parent().stack.setCurrentIndex(1)
 
@@ -1676,7 +1668,7 @@ class eatHere(QtWidgets.QWidget):
         MainWindow.totalCost = 0
         MainWindow.menuName = ""
         MainWindow.topping = "없음"
-        MainWindow.bread = "없음"
+        MainWindow.bread = "기본"
         self.parent().stack.setCurrentIndex(2)
 
     def changeState(self):
@@ -1769,7 +1761,7 @@ class payment(QtWidgets.QWidget): #결제화면
         MainWindow.totalCost = 0
         MainWindow.menuName = ""
         MainWindow.topping = "없음"
-        MainWindow.bread = "없음"
+        MainWindow.bread = ""
 
         payment.payUi.moenyInput.setText("")
 
