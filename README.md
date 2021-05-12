@@ -5,3 +5,5 @@ open workspace for HUFS_SE team 6
 
 각자 자신의 branch를 생성하신 후 거기에서 작업해주세요
 * 완성본만 master branch에 커밋해주세요 *
+
+Go to sieun branch
